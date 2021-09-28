@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Alert, Container, Form} from 'react-bootstrap';
 import AllServices from "./Services";
 import './style.css'
+import '../../Client/Component/Product/style.css'
 
 const CreateAnnonce = () => {
   const [error, setError] = useState(false)
@@ -10,6 +11,8 @@ const CreateAnnonce = () => {
   const [countries, setCountries] = useState([])
   const [brand, setBrand] = useState('')
   const [kindProduct, setKindProduct] = useState('')
+  const [mapKilometer, setMapKilometer] = useState('')
+  const [budgetPlanned, setBudgetPlanned] = useState('')
   const [numberTransport, setNumberTransport] = useState('')
   const [tonnage, setTonnage] = useState('')
   const [countryLoading, setCountryLoading] = useState('')
@@ -28,7 +31,7 @@ const CreateAnnonce = () => {
   const showSuccess = () => (
 
       <Alert className={"alert-success"} style={{ display: success ? '' : 'none' }}>
-        <strong> <center>Merci pour votre annonce </center> </strong>
+        <strong> <center> {success} </center> </strong>
       </Alert>
   )
 
@@ -55,6 +58,8 @@ const CreateAnnonce = () => {
     annonce.preventDefault();
     const newAnnonce = {
       brand,
+      budgetPlanned,
+      mapKilometer,
       countryDelivery,
       countryLoading,
       dateDelivery,
@@ -73,12 +78,14 @@ const CreateAnnonce = () => {
           setPlaceDelivery('')
           setPlaceLoading('')
           setDateDelivery('')
+          setBudgetPlanned('')
+          setMapKilometer('')
           setMessage('')
           setTonnage('')
           setKindProduct('')
           setCountryLoading('')
           setCountryDelivery()
-          setSuccess('true')
+          setSuccess(response.data.message)
           setError('')
         })
 
@@ -102,7 +109,7 @@ const CreateAnnonce = () => {
 
           <div className="col-lg-6 grid-margin stretch-card">
             <div className="card">
-              <div className="card-body">
+              <div className="card-body cardbodymaincommande">
                 <form className="forms-sample">
                   <Form.Group>
                     <label className={'text-dark text-capitalize'} htmlFor="brand" >Marque</label>
@@ -160,10 +167,22 @@ const CreateAnnonce = () => {
                         value={countryLoading}
                         onChange={(e) => setCountryLoading(e.target.value)}
                     >
+                      <option>selectionner le pays...</option>
                       {countries && countries.map((country, index) => (
                           <option key={country.id} value={country.id}>{country.country}</option>
                       ))}
                     </select>
+                  </Form.Group>
+                  <Form.Group>
+                    <label className={'text-dark text-capitalize'} htmlFor="numberTransport">Budget prévu</label>
+                    <Form.Control
+                        type="number"
+                        className="form-control"
+                        id="exampleInputEmail3"
+                        placeholder="Budget prévu"
+                        value={budgetPlanned}
+                        onChange={(e) => setBudgetPlanned(e.target.value)}
+                    />
                   </Form.Group>
                 </form>
               </div>
@@ -171,10 +190,21 @@ const CreateAnnonce = () => {
           </div>
           <div className="col-lg-6 grid-margin stretch-card">
             <div className="card">
-              <div className="card-body">
+              <div className="card-body cardbodymaincommande">
 
                 <form className="forms-sample">
-
+                  <Form.Group>
+                    <label className={'text-dark text-capitalize'} htmlFor="numberTransport">Nombre de kilomètre</label>
+                    <Form.Control
+                        desabled={true}
+                        type="number"
+                        className="form-control"
+                        id="exampleInputEmail3"
+                        placeholder="Nombre de kilomètre"
+                        value={mapKilometer}
+                        onChange={(e) => setMapKilometer(e.target.value)}
+                    />
+                  </Form.Group>
                   <Form.Group>
                     <label className={'text-dark text-capitalize'} htmlFor="countryDelivery" >Pays de livraison</label>
                     <select
@@ -183,6 +213,7 @@ const CreateAnnonce = () => {
                         value={countryDelivery}
                         onChange={(e) => setCountryDelivery(e.target.value)}
                     >
+                      <option>selectionner le pays...</option>
                       {countries && countries.map((country, index) => (
                           <option key={country.id} value={country.id}>{country.country}</option>
                       ))}
@@ -210,7 +241,6 @@ const CreateAnnonce = () => {
                         onChange={(e) => setPlaceDelivery(e.target.value)}
                     />
                   </Form.Group>
-
                   <Form.Group>
                     <label className={'text-dark text-capitalize'} htmlFor="dateDelivery">Date de livraison</label>
                     <Form.Control
@@ -233,7 +263,6 @@ const CreateAnnonce = () => {
                         onChange={(e) => setMessage(e.target.value)}
                     ></textarea>
                   </Form.Group>
-
                   <button
                       type="submit"
                       className="btn btn-primary mr-2 btn-fw"
@@ -245,7 +274,6 @@ const CreateAnnonce = () => {
               </div>
             </div>
           </div>
-
         </div>
       </Container>
   )

@@ -53,8 +53,8 @@ const Marque= () => {
                                         categories.map((c,index,viewImageCategoryById) =>(
                                             <tr key={c.id} className={'text-center'}>
                                                 <td >{index+1}</td>
-                                                <td>{c.category}</td>
-                                                <td>{c.imageCategory} </td>
+                                                <td>{c.categoryItem}</td>
+                                                <td>{c.imageCategoryItem} </td>
                                                 <td>
                                                     {/*<Link to={`/vehicules/categories`} className={'text-decoration-none'}>*/}
                                                     {/*    <span className="icon-bg "><i className="mdi mdi-pen "></i>Editer</span>*/}

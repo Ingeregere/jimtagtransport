@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Card} from "react-bootstrap";
 import {Link, useParams} from "react-router-dom";
 import './style.css'
-const API = "http://e-commerce-transport-backend.herokuapp.com:80/api/categories/viewImageCategoryById/"
+const API = "http://e-commerce-transport-backend.herokuapp.com:80/api/category/item/viewImageCategoryItemById/"
 
 const ShowImage = () => {
     const {id} = useParams()

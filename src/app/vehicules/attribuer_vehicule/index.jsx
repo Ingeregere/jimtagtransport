@@ -78,7 +78,7 @@ const Transport = () => {
         })
     }
     const getAllCategory = () =>{
-        CategorieServices.getAllCategory().then((response) =>{
+        TransportServices.getAllCategoryTransport().then((response) =>{
             setCategories(response.data)
         })
     }

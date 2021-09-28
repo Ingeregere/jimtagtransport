@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, Badge, Form} from 'react-bootstrap';
-import AllServices from "./CategorieServices";
+import AllServices from "./GererVehiculeServices";
 import {Link, useParams} from "react-router-dom";
 
 
@@ -9,13 +9,11 @@ const Marque= () => {
     const {id} = useParams()
     const [values,setValues] = useState({
         imageCategoryItem: '',
-        categoryItem: '',
         error: '',
         success: '',
         formData: ''
     })
     const {
-        categoryItem,
         formData,
         error,
         success
@@ -36,7 +34,7 @@ const Marque= () => {
     const clickSubmit = event =>{
         event.preventDefault();
         setValues({...values, error: ''})
-        AllServices.postCategory(formData)
+        AllServices.postCategory(formData,id)
             .then(data =>{
                 if(data.error){
                     setValues({...values,error: false})
@@ -68,12 +66,12 @@ const Marque= () => {
     return (
         <div>
             <div className="page-header mainheader">
-                <h3 className="page-title">{id? "Editer" : "Ajouter"} une catagorie </h3>
+                <h3 className="page-title">{id? "Editer" : "Ajouter"} une image du transport </h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <Link to={'/vehicules/categories'}>
+                        <Link to={'/vehicules/gérer_vehicules'}>
                             <button type="button" className="btn btn-primary btn-fw">
-                              <span>  <i className="mdi mdi-arrow-left-bold-circle-outline "></i>Retour</span>
+                                <span>  <i className="mdi mdi-arrow-left-bold-circle-outline "></i>Retour</span>
                             </button>
                         </Link>
                     </ol>
@@ -90,7 +88,7 @@ const Marque= () => {
                     <div className="card">
                         <div className="card-body">
                             <form className="form-inline">
-                                <h4 className="card-title px-2">Categorie</h4>
+                                <h4 className="card-title px-2">Image du transport</h4>
                                 <label className="sr-only" htmlFor="inlineFormInputName2">Image</label>
                                 <Form.Control
                                     type="file"
@@ -99,16 +97,6 @@ const Marque= () => {
                                     accept={'image/*'}
                                     name={'imageCategoryItem'}
                                     onChange={handleChange('imageCategoryItem')}
-                                />
-                                <label className="sr-only" htmlFor="inlineFormInputName2">Name</label>
-                                <Form.Control
-                                    type="text"
-                                    className="form-control mb-2 mr-sm-2"
-                                    id="inlineFormInputName2"
-                                    placeholder="Ajouter une nouvelle categorie"
-                                    value={categoryItem}
-                                    name={'category'}
-                                    onChange={handleChange('categoryItem')}
                                 />
 
                                 <button
