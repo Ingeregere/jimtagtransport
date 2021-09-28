@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './style.css'
 import {Alert, Badge, Form} from 'react-bootstrap';
-import AllServices from "./CarrosseriesService";
+import AllServices from "./GererVehiculeServices";
 import {Link, useHistory, useParams} from "react-router-dom";
 
 
@@ -9,7 +9,7 @@ import {Link, useHistory, useParams} from "react-router-dom";
 const Index= () => {
 
     const [brands, setBrands] = useState([])
-    const [bodywork, setBodywork] = useState('')
+    const [status, setStatus] = useState('')
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState('')
     const history = useHistory()
@@ -18,13 +18,12 @@ const Index= () => {
 
     const saveBodywork = (event) =>{
         event.preventDefault();
-        const newBodywork = { bodywork}
-        AllServices.postBodywork(newBodywork)
+        const newStatus = { status , id}
+        AllServices.enableDisableStatusTransport(newStatus)
             .then(response=>{
-                console.log('New annonce is added', response.data)
                 setSuccess(response.data.message)
                 setError('')
-                setBodywork('')
+                setStatus('')
 
             })
             .catch(error =>{
@@ -41,7 +40,7 @@ const Index= () => {
     )
     const SuccessClose = () =>{
         setSuccess('')
-        history.push('/vehicules/carrosseries')
+        history.push('/vehicules/gérer_vehicules')
     }
     const showSuccess = () => (
 
@@ -53,10 +52,10 @@ const Index= () => {
     return (
         <div>
             <div className="page-header mainheader">
-                <h3 className="page-title"> {id? "Editer": "Ajouter"} une Carrosserie </h3>
+                <h3 className="page-title"> {id? "Editer": "Ajouter"} changer l'état du vehicule </h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <Link to={'/vehicules/carrosseries'}>
+                        <Link to={'/vehicules/gérer_vehicules'}>
                             <button type="button" className="btn btn-primary btn-fw">
                                 <span className="icon-bg "><i className="mdi mdi-arrow-left-bold-circle-outline "></i>Retour</span>
                             </button>
@@ -75,22 +74,25 @@ const Index= () => {
                     <div className="card">
                         <div className="card-body">
                             <form className="form-inline">
-                                <h4 className="card-title px-2">Carrosserie</h4>
-                                <label className="sr-only" htmlFor="inlineFormInputName2">Name</label>
-                                <Form.Control
-                                    type="text"
-                                    className="form-control mb-2 mr-sm-2"
-                                    id="inlineFormInputName2"
-                                    placeholder="Ajouter une nouvelle carrosserie"
-                                    value={bodywork}
-                                    onChange={(e) => setBodywork(e.target.value)}
-                                />
+                                <h4 className="card-title px-2 ml-4">Vehicule</h4>
+                                <Form.Group>
+                                    <select
+                                        className="form-control"
+                                        id="exampleSelectGender"
+                                        value={status}
+                                        onChange={(e) => setStatus(e.target.value)}
+                                    >
+                                       <option>selectionner...</option>
+                                       <option value={'true'}>Activé</option>
+                                       <option value={'false'}>desactivé</option>
+                                    </select>
+                                </Form.Group>
                                 <button
                                     type="submit"
-                                    className="btn btn-primary mr-2 btn-fw"
+                                    className="btn btn-primary mr-2 btn-fw ml-4"
                                     onClick={(event) => saveBodywork(event)}
                                 >
-                                    {id? 'Editer': 'Envoyer'}
+                                    Envoyer
                                 </button>
                             </form>
                         </div>

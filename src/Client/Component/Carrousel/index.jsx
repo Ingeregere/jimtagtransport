@@ -5,6 +5,7 @@ import {dataArticle, dataCarrousel} from "./data";
 import {useParams} from "react-router-dom";
 import AllServices from "../../../app/image-slide/Service";
 import ShowImage from "../../../app/vehicules/categories/showImage";
+import ShowCarousel from "./ShowCarousel";
 
 const CarrouselAds = () => {
     const [index, setIndex] = useState(0);
@@ -38,7 +39,7 @@ const CarrouselAds = () => {
                             {
                                 carousels.map((carrousel,index) => (
                                     <Carousel.Item key={index}>
-                                        <ShowImage
+                                        <ShowCarousel
                                             getId={carrousel}
                                             item={'carousel'}
                                             method={'viewImageCarouselById'}

@@ -23,6 +23,8 @@ const BodyWork = lazy(() => import('./vehicules/carrosseries'));
 const AddBodywork = lazy(() => import('./vehicules/carrosseries/Add'));
 const UpdateBodywork = lazy(() => import('./vehicules/carrosseries/UpdateCarrosserie'));
 const Attribuer_vehicule = lazy(() => import('./vehicules/attribuer_vehicule'));
+const AjouterImageTransport = lazy(() => import('./vehicules/gérer_vehicules/ImageTransport'));
+const EnableAndDesable = lazy(() => import('./vehicules/gérer_vehicules/EnableDesable'));
 const HomePage = lazy(()=>import('../Client/Pages/Home'))
 const Tracteur = lazy(()=>import('../Client/Pages/Tracteur'))
 const Porteur = lazy(()=>import('../Client/Pages/Porteur'))
@@ -64,10 +66,10 @@ class AppRoutes extends Component {
         <Switch>
           <Route exact path="/admin" component={ Dashboard } />
           <Route exact path="/" component={ HomePage } />
-          <Route exact path="/tracteur" component={ Tracteur } />
+          <Route exact path="/tracteurs" component={ Tracteur } />
           <Route exact path="/vehicules/category/editer/:id" component={ UpdateCategory } />
           <Route exact path="/vehicules/ajouter_category" component={ AddCategory } />
-          <Route exact path="/porteur" component={ Porteur } />
+          <Route exact path="/porteurs" component={ Porteur } />
           <Route exact path="/image-slide/ajouter-image" component={ AddSlide } />
           <Route exact path="/vehicules/categories/voir-image/:id" component={ VoirImageCategory } />
           <Route exact path="/semis" component={ Semis } />
@@ -95,6 +97,8 @@ class AppRoutes extends Component {
           <Route path="/vehicules/carrosseries" component={ BodyWork } />
           <Route path="/vehicules/attribuer_vehicules" component={ Attribuer_vehicule } />
           <Route path="/vehicules/gérer_vehicules" component={ GererVehicule } />
+          <Route path="/vehicules/ajouter_image/:id" component={ AjouterImageTransport } />
+          <Route path="/vehicules/active-desactive/:id" component={ EnableAndDesable } />
           <Route path="/vehicules/dropdowns" component={ Dropdowns } />
           <Route path="/contacts/question" component={ ContactFQA } />
           <Route path="/image-slide/image-slide" component={ ImageSlide } />
@@ -104,7 +108,7 @@ class AppRoutes extends Component {
           <Route path="/annonce/gérer_annonces" component={ GererAnnonce } />
           <Route path="/commandes/par-jour" component={ CommandePerDay } />
           <Route path="/annonce/nouvelle_annonces" component={ DeposerAnnnonce } />
-          <Route path="/déposer_annonce" component={ DeposerAnnnonce } />
+          <Route path="/commande-camion" component={ DeposerAnnnonce } />
           <Route path="/contacts/clients" component={ ContactUser } />
           <Route path="/contacts/recus-par-jour" component={ ContactPerDay } />
           <Route path="/user-pages/utilisateur" component={ AllUser } />

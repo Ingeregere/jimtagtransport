@@ -100,11 +100,13 @@ class App extends Component {
     const idpays = currentURL.slice(20,1000000000)
     const idpaysEditer = currentURL.slice(23,1000000000)
     const idcarro = currentURL.slice(27,1000000000)
+    const idactivedesactive = currentURL.slice(28,1000000000)
     const idrole = currentURL.slice(24,1000000000)
     const iduserEditer = currentURL.slice(24,1000000000)
     const idcategory = currentURL.slice(27,1000000000)
     const idslide = currentURL.slice(20,1000000000)
     const idvoirimageCat = currentURL.slice(33,1000000000)
+    const imagetransport = currentURL.slice(25,1000000000)
     console.log('modelId:'+idcategory)
     const a = "/vehicules/category/editer/"
     console.log(a.length)
@@ -124,6 +126,8 @@ class App extends Component {
           this.props.location.pathname === `/user-pages/editer_role/${idrole}`||
           this.props.location.pathname === `/user-pages/editer_user/${iduserEditer}`||
           this.props.location.pathname === `/vehicules/pays/editer/${idpaysEditer}` ||
+          this.props.location.pathname === `/vehicules/ajouter_image/${imagetransport}` ||
+          this.props.location.pathname === `/vehicules/active-desactive/${idactivedesactive}` ||
           this.props.location.pathname === `/image-slide/editer/${idslide}`
 
 

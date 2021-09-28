@@ -3,16 +3,10 @@ import image2 from '../../../assets/images/category/maxtrailler4.jpg'
 import image3 from '../../../assets/images/category/scania2.jpg'
 import ads from '../../../assets/images/category/articlebge.png'
 
-export const dataCarrousel = [
-    {
-        image: image1
-    },
-    {
-        image: image2
-    },
-    {
-        image: image3
-    },
+export const dataTable = [
+    {name: 'Blaise',position: "Directeur", office: "office", age: 25, salary: 25000,namee: 'Blaise',positione: "Directeur", officee: "office", agee: 25, salarye: 25000,},
+
+
 ]
 
 export const dataArticle = [

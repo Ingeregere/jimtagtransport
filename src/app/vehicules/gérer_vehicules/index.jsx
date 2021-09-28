@@ -2,25 +2,44 @@ import React, {useEffect, useState} from 'react';
 import './style.css'
 import {Alert, Badge, Form} from 'react-bootstrap';
 import AllServices from "./GererVehiculeServices";
-import {Link, useHistory, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 
 
 const Index= () => {
     const [transports, setTransports] = useState([])
-    const [transport, setTransport] = useState('')
-    const [error, setError] = useState(false)
-    const [success, setSuccess] = useState('')
-    const history = useHistory()
+    const [status, setStatus] = useState(false)
     const {id} = useParams()
 
     useEffect(()=>{
         getAllTransports()
+        postImageTransport()
     },[])
     const getAllTransports = () =>{
         AllServices.getAllTransports().then((response) =>{
             setTransports(response.data)
         })
+    }
+
+    const postImageTransport = () =>{
+        AllServices.postImageTransport().then((response) =>{
+            setStatus(response.data)
+        })
+    }
+    const saveStus = (event) =>{
+        event.preventDefault();
+        const data = { status, id}
+        if(id){
+            AllServices.enableDisableStatusTransport(data)
+                .then(response=>{
+                    console.log('status :', response.data)
+                    setStatus(true)
+
+                })
+                .catch(error =>{
+                    console.log('something went wrong', error)
+                })
+        }
     }
 
     return (
@@ -75,7 +94,19 @@ const Index= () => {
                                                 <td>{b.category}</td>
                                                 <td>{b.country}</td>
                                                 <td>{b.dateRegistration}</td>
-                                                <td>{b.imageTransport}</td>
+                                                <td>{ b.imageTransport==='Insérer une image'?
+                                                    <Link to={`/vehicules/ajouter_image/${b.id}`}>
+                                                        <button type="button" className="btn btn-primary btn-fw">
+                                                            Insérer une image
+                                                        </button>
+                                                    </Link> :
+                                                    <Link to={`/vehicules/ajouter_image/${b.id}`}>
+                                                        <button type="button" className="btn btn-primary btn-fw">
+                                                            Voir image
+                                                        </button>
+                                                    </Link>
+                                                    }
+                                                </td>
                                                 <td>{b.kilometer}</td>
                                                 <td>{b.model}</td>
                                                 <td>{b.pav}</td>
@@ -83,7 +114,20 @@ const Index= () => {
                                                 <td>{b.ptc}</td>
                                                 <td>{b.ptr}</td>
                                                 <td>{b.suspension}</td>
-                                                <td>{b.status}</td>
+                                                <td>
+                                                    {b.status?
+                                                        <Link to={`/vehicules/active-desactive/${b.id}`}>
+                                                            <button type="button" className="btn btn-primary btn-fw">
+                                                                Activé
+                                                            </button>
+                                                        </Link>:
+                                                        <Link to={`/vehicules/active-desactive/${b.id}`}>
+                                                            <button type="button" className="btn btn-warning btn-fw">
+                                                                Désactivé
+                                                            </button>
+                                                        </Link>
+                                                    }
+                                                </td>
 
                                             </tr>
                                         ))
